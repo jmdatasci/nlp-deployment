@@ -33,6 +33,7 @@ jobs:
           pip install poetry==${{ matrix.poetry-version }}
 
       - name: Install Dependencies
+        uses: actions/cache@v2
         with:
           cache: 'poetry'
         run: |
