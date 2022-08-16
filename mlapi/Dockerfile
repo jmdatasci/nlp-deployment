@@ -13,7 +13,7 @@ ENV PATH /root/.local/bin:$PATH
 
 #setup directory for poetry
 WORKDIR /mlapi
-COPY pyproject.toml poetry.lock ./
+COPY ../pyproject.toml poetry.lock ./
 
 #run poetry to install requirements
 RUN python -m venv --copies /mlapi/venv

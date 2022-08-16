@@ -15,7 +15,6 @@ pandas = "^1.4.2"
 fastapi-redis-cache = "^0.2.5"
 sqlalchemy-orm = "^1.2.2"
 redis = "^4.3.4"
-fastapi-redis-cache = "^0.2.5"
 transformers = "^4.17.0"
 scipy = "^1.8"
 torch = [
