@@ -35,8 +35,7 @@ jobs:
       - name: Install Dependencies
         with:
           cache: 'poetry'
-        run: |
-          poetry install --no-interaction --no-root
+        run: poetry install --no-interaction --no-root
 
       - name: Pytest
         run: |
