@@ -2,13 +2,19 @@
 name = "mlapi"
 version = "0.1.0"
 description = ""
-authors = ["James Winegar <jameswine@gmail.com>"]
+authors = ["Jordan  <16210031+jmdatasci@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
 fastapi = "^0.75.1"
 uvicorn = "^0.17.5"
 requests = "^2.27.1"
+joblib = "^1.1.0"
+scikit-learn = "^1.1.1"
+pandas = "^1.4.2"
+fastapi-redis-cache = "^0.2.5"
+sqlalchemy-orm = "^1.2.2"
+redis = "^4.3.4"
 fastapi-redis-cache = "^0.2.5"
 transformers = "^4.17.0"
 scipy = "^1.8"
@@ -25,6 +31,7 @@ black = "^22.3.0"
 isort = "^5.10.1"
 datasets = "^2.0.0"
 scikit-learn = "^1.0"
+requests = "^2.27.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
