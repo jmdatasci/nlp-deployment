@@ -33,10 +33,10 @@ jobs:
         with:
           cache: 'poetry'
         run: |
-          cd ./mlapi/
+          cd ./mlapi/mlapi/
           poetry install --no-interaction --no-root
 
       - name: Pytest
         run: |
-          cd ./mlapi/
+          cd ./mlapi/mlapi/
           poetry run pytest -vv

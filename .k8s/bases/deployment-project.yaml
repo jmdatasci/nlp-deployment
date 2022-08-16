@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project
+  namespace: jordanmeyer
+  labels:
+    app: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project
+  template:
+    metadata:
+      labels:
+        app: project
+    spec:
+      containers:
+        - name: project
+          image: w255mids.azurecr.io/jordanmeyer/project:latest
+          resources:
+            requests:
+              cpu: 200m
+              memory: 1Gi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /health
+              port: 8000
+            initialDelaySeconds: 1
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+      initContainers:
+        - name: init-verify-redis-service-dns
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "until nc -vz redis 6379; do echo 'waiting for redis service from DNS'; sleep 2; done",
+            ]
+        - name: init-verify-redis-ready
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "until (printf 'PING\r\n';) | nc redis 6379; do echo 'waiting for redis to PONG'; sleep 1; done",
+            ]
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: project
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: project
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 25

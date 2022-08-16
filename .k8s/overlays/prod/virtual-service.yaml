@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: project
+spec:
+  hosts:
+  - jordanmeyer.mids-w255.com
+  gateways:
+  - istio-ingress/jordanmeyer-gateway
+  http:
+  - match:
+    - uri:
+        exact: /predict
+    - uri:
+        prefix: /health
+    - uri:
+        prefix: /docs
+    - uri:
+        prefix: /openapi.json
+    route:
+    - destination:
+        host: project
+        port:
+          number: 8000
