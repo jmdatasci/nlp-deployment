@@ -33,14 +33,13 @@ jobs:
           pip install poetry==${{ matrix.poetry-version }}
 
       - name: Install Dependencies
-        uses: actions/cache@v2
         with:
           cache: 'poetry'
         run: |
-          cd ./mlapi/mlapi/
+          cd ./mlapi/mlapi
           poetry install --no-interaction --no-root
 
       - name: Pytest
         run: |
-          cd ./mlapi/mlapi/
+          cd ./mlapi/mlapi
           poetry run pytest -vv
